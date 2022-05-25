@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="layout/header" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Liste Des Tickets</title>
+</head>
+
+
+<body>
+  <div layout:fragment="content1">
+    <div class="container">
+      <div class="card">
+
+
+        <div class="card-body">
+
+
+
+          <div class="card-header mt-2">Liste Des Tickets</div>
+          <div class="table-responsive text-nowrap">
+            <table class="table">
+              <thead class="table-dark">
+                <tr>
+
+
+                
+                  <th>description</th>
+                  <th>urgence</th>
+                  <th>client</th>
+                  <th>admin</th>
+                  <th>status</th>
+                  <th>actions</th>
+
+                </tr>
+              </thead>
+              <tbody class="table-border-bottom-0">
+                <tr th:each="a:${listTickets}">
+
+                 
+                  <td th:text="${a.getDescription()}"></td>
+                  <td th:text="${a.getUrgence()}"></td>
+                  <td th:text="${a.getClient().getNom()}"></td>
+                  <td th:text="${a.getAdmin().getNom()}"></td>
+
+
+                  <td th:switch="${a.getStatus()}">
+                    <span th:case="'résolu'" class="badge bg-success">résolu</span>
+                    <span th:case="'en attente'" class="badge bg-danger"> en attente</span>
+                    <span th:case="'en cours de traitement'" class="badge bg-warning"> en cours de traitement</span>
+
+                  </td>
+                  <td sec:authorize="hasAuthority('DEVELOPPEUR')">
+                    <a  class="btn bg-primary"
+                      th:href="@{updateStatus(id_ticket=${a.getId_ticket()})}"> mettre à jour le statut</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+
+  </div>
+
+
+</body>
+
+</html>

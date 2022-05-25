@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="layout/header" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Liste Des clients</title>
+</head>
+
+
+<body>
+  <div layout:fragment="content1">
+    <div class="container">
+      <div class="card">
+
+
+        <div class="card-body">
+
+<!--
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModal">Ajouter
+          </button>
+
+        -->
+
+          <div class="card-header mt-2">Clients</div>
+          <div class="table-responsive text-nowrap">
+            <table class="table">
+              <thead class="table-dark">
+                <tr>
+
+
+                  <tr>
+                    <th>ID</th>
+                    <th>nom</th>
+                    <th>prenom</th>
+                    <th>tel</th>
+                    <th>matricule_client</th>
+    
+                  </tr>
+
+                </tr>
+              </thead>
+              <tbody class="table-border-bottom-0">
+                <tr th:each="a:${listClients}">
+                  <td th:text="${a.getId()}"></td>
+                  <td th:text="${a.getNom()}"></td>
+                  <td th:text="${a.getPrenom()}"></td>
+                  <td th:text="${a.getTel()}"></td>
+                  <td th:text="${a.getMatricule_client()}"></td>
+  
+                
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+ 
+
+
+  </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="layout/header" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Modifier Status</title>
+</head>
+
+
+<body>
+  <div layout:fragment="content1">
+    <div class="container">
+      <div class="card">
+
+
+        <div class="card-body">
+
+       
+
+          <div class="card-header mt-2">Modifier Status</div>
+          <div class="table-responsive text-nowrap">
+            <form action="post" th:action="@{save}">
+              <!--
+           <div class="mb-3">    
+                <label class="form-control"  name="nomStatus" id="basic-default-company" placeholder="App25" >Status</label>
+                   <input list="browsers" autocomplete="off"  class="form-control" name="nomStatus" id="basic-default-company" placeholder="nomStatus"  th:value="${nomStatus}" >
+        <datalist id="browsers">
+       
+          <option value="en cours de traitement">
+          <option value="résolu">
+         
+        </datalist>
+          <span class="text-danger" th:errors="${nomStatus}"></span>
+         </div>
+      -->
+              <div class="col mb-3">
+                <label for="nomStatus" class="form-label">Status</label>
+                <select id="browse2" class="form-select" name="nomStatus" required >
+
+                  <option value="en cours de traitement"> en cours de traitement</option>
+                  <option value="résolu"> résolu</option>
+
+                </select>
+               
+              </div>
+
+
+
+              <button type="submit" class="btn btn-primary">Submit</button>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+
+  </div>
+
+
+</body>
+
+</html>

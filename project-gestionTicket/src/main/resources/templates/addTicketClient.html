@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="layout/header" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Liste Des Tickets</title>
+</head>
+
+
+<body>
+  <div layout:fragment="content1">
+    <div class="container">
+      <div class="card">
+
+
+        <div class="card-body">
+
+
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModal">Ajouter
+          </button>
+
+
+
+          <div class="card-header mt-2">Liste Des Tickets</div>
+          <div class="table-responsive text-nowrap">
+            <table class="table">
+              <thead class="table-dark">
+                <tr>
+
+
+                  <th>description</th>
+                  <th>urgence</th>
+                  <th>environnement</th>
+                  <th>logiciel</th>
+                  <th>status</th>
+
+                </tr>
+              </thead>
+              <tbody class="table-border-bottom-0">
+                <tr th:each="a:${listTickets}">
+
+
+                  <td th:text="${a.getDescription()}"></td>
+                  <td th:switch="${a.getUrgence()}">
+                    <span th:case="'urgent'" class="badge bg-warning">urgent</span>
+                    <span th:case="'critique'" class="badge bg-danger"> critique</span>
+                    <span th:case="'normal'" class="badge bg-info"> normal</span>
+                    <span th:case="'non urgent'" class="badge bg-success"> non urgent</span>
+
+                  </td>
+                  <td th:text="${a.getEnvironnement()}"></td>
+                  <td th:text="${a.getLogiciel()}"></td>
+                  <td th:switch="${a.getStatus()}">
+                    <span th:case="'résolu'" class="badge bg-success">résolu</span>
+                    <span th:case="'en attente'" class="badge bg-danger"> en attente</span>
+                    <span th:case="'en cours de traitement'" class="badge bg-warning"> en cours de traitement</span>
+
+                  </td>
+
+
+
+                  <td sec:authorize="hasAuthority('ADMIN')">
+                    <a onclick="return confirm('Etes Vous Sur de Supprimer ? ')" class="btn bg-danger"
+                      th:href="@{affecterTicket(id_ticket=${a.getId_ticket()})}">Supprimer</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <!--  ajout modal -->
+    <div class="modal fade" id="largeModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel3">Ajouter ticket</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form action="post" th:action="@{save}">
+            <div class="modal-body">
+              <div class="row">
+                <div class="col mb-3">
+
+                  <label class="form-label" for="basic-default-company">description</label>
+                  <input type="text" class="form-control" id="basic-default-company" name="description" required
+                    placeholder="description" th:value="${ticket.description}">
+                  <span class="text-danger" th:errors="${ticket.description}"></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col mb-3">
+
+                  <label class="form-label" for="basic-default-fullname">urgence</label>
+                  <input type="text" name="urgence" class="form-control" id="basic-default-fullname" required
+                    placeholder="125" th:value="${ticket.urgence}" />
+                  <span class="text-danger" th:errors="${ticket.urgence}"></span>
+                </div>
+              </div>
+              <!--
+              <div class="col mb-3">
+                <label for="nomImmeuble" class="form-label">urgence</label>
+                <select id="browse2" class="form-select" name="urgence" required  th:value="${item.urgence}">
+
+                  <option > critique</option>
+                  <option > urgent</option>
+                  <option > normal</option>
+                  <option > non urgent</option>
+
+
+                </select>
+                <span class="text-danger" th:errors="${item.urgence}"></span>
+              </div>
+-->
+              <div class="row">
+                <div class="col mb-3">
+
+                  <label class="form-label" for="basic-default-company">logiciel</label>
+                  <input type="text" class="form-control" name="logiciel" id="basic-default-company" required
+                    placeholder="80" th:value="${ticket.logiciel}">
+                  <span class="text-danger" th:errors="${ticket.logiciel}"></span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col mb-3">
+                  <label class="form-label" for="basic-default-company">environnement</label>
+                  <input type="text" class="form-control" name="environnement" id="basic-default-company" required
+                    placeholder="" th:value="${ticket.environnement}">
+                  <span class="text-danger" th:errors="${ticket.environnement}"></span>
+                </div>
+              </div>
+
+
+
+
+
+
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                Exit
+              </button>
+              <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+</body>
+
+</html>

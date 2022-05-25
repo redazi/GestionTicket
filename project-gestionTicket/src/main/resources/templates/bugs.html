@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="layout/header" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Liste Des Tickets</title>
+</head>
+
+
+<body>
+  <div layout:fragment="content1">
+    <div class="container">
+      <div class="card">
+
+
+        <div class="card-body">
+
+<!--
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModal">Ajouter
+          </button>
+
+        -->
+
+          <div class="card-header mt-2">Liste Des Tickets Non Affecter</div>
+          <div class="table-responsive text-nowrap">
+            <table class="table">
+              <thead class="table-dark">
+                <tr>
+
+
+                  <th>id_ticket</th>
+                  <th>description</th>
+                  <th>urgence</th>
+                  <th>client</th>
+                  <th>Actions</th>
+
+                </tr>
+              </thead>
+              <tbody class="table-border-bottom-0">
+                <tr th:each="a:${listTickets}">
+                  <td th:text="${a.getId_ticket()}"></td>
+                  <td th:text="${a.getDescription()}"></td>
+                 
+                  <td th:switch="${a.getUrgence()}">
+                    <span th:case="'urgent'" class="badge bg-warning">urgent</span>
+                    <span th:case="'critique'" class="badge bg-danger"> critique</span>
+                    <span th:case="'normal'" class="badge bg-info"> normal</span>
+                    <span th:case="'non urgent'" class="badge bg-success"> non urgent</span>
+
+                  </td>
+                  <td th:text="${a.getClient().getNom()}"></td>
+                  <!--                    <td th:text="${a.getResidantAppartement().getId()}"></td>-->
+                  <td sec:authorize="hasAuthority('ADMIN')">
+                    <a  class="btn bg-primary"
+                      th:href="@{affecterTicket(id_ticket=${a.getId_ticket()})}">Affecter</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+ 
+
+
+  </div>
+
+
+</body>
+
+</html>
